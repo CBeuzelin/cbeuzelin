@@ -1,10 +1,14 @@
 import React from "react";
+import { FormattedMessage } from "react-intl";
+
+import MainCategory from "../common/components/mainCategory";
+import { ERoutes } from "../../shared/enums/routes.enum";
 
 function Prestations() {
   return (
-    <div id="prestations" className="main-category theme-secondary-container">
-      PRESTATIONS
-    </div>
+    <MainCategory id={ERoutes.PRESTATIONS} isMain={false}>
+      <FormattedMessage id="prestations" />
+    </MainCategory>
   );
 }
 

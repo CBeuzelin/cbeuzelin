@@ -1,0 +1,20 @@
+@import "src/shared/styles/variables";
+
+.dark-theme {
+  &,
+  a {
+    color: $dark-content-color;
+  }
+
+  .theme-main-container {
+    background-color: $dark-main-background-color;
+  }
+
+  .theme-secondary-container {
+    background-color: $dark-secondary-background-color;
+  }
+
+  .theme-border {
+    border-color: $dark-border-color;
+  }
+}

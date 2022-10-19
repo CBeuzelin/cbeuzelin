@@ -1,14 +1,46 @@
 import "./styles.scss";
 
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
+import { ERoutes } from "../../../../shared/enums/routes.enum";
+import AppContext from "../../../../contexts/app.context";
 
 interface IProps {
   children: ReactNode;
   className?: string;
 }
 
-const CustomScrollBars = (props: IProps) => {
+function getOffsetHeights(): number[] {
+  return Object.values(ERoutes)
+    .map((route, index) => {
+      const routeElement = document.querySelector(`#${route}`);
+      if (routeElement) {
+        return index * window.innerHeight;
+      }
+
+      return 0;
+    })
+    .sort((a, b) => b - a);
+}
+
+function getVisibleSection(scrollHeight: number, scrollTop: number): ERoutes {
+  const offsetHeights = getOffsetHeights();
+
+  let index = offsetHeights.findIndex((height) => {
+    const middle = height + window.innerHeight / 2;
+    return middle >= scrollTop && middle < scrollTop + window.innerHeight;
+  });
+
+  const route = Object.values(ERoutes).find(
+    (route, i) => i === offsetHeights.length - 1 - index
+  );
+
+  return route ?? ERoutes.PRESENTATION;
+}
+
+function CustomScrollbar(props: IProps) {
   const [scrollBarStyle, setScrollBarStyle] = useState({});
+
+  const { setVisibleSection } = useContext(AppContext);
 
   useEffect(() => {
     const scrollContainer = document.querySelector("#scroll-container");
@@ -22,10 +54,14 @@ const CustomScrollBars = (props: IProps) => {
           const totalPageHeight =
             scrollContainer.scrollHeight - window.innerHeight;
           const newProgressHeight = scrollContainer.scrollTop / totalPageHeight;
-          setScrollBarStyle({
-            transform: `scale(1,${newProgressHeight})`,
-            opacity: `${newProgressHeight}`,
-          });
+          setScrollBarStyle({ transform: `scale(1,${newProgressHeight})` });
+
+          setVisibleSection(
+            getVisibleSection(
+              scrollContainer.scrollHeight,
+              scrollContainer.scrollTop
+            )
+          );
         },
         {
           capture: true,
@@ -51,6 +87,13 @@ const CustomScrollBars = (props: IProps) => {
           scrollContainer.scrollHeight - window.innerHeight;
         const newProgressHeight = scrollContainer.scrollTop / totalPageHeight;
 
+        setVisibleSection(
+          getVisibleSection(
+            scrollContainer.scrollHeight,
+            scrollContainer.scrollTop
+          )
+        );
+
         setScrollBarStyle({
           transform: `scale(1,${newProgressHeight})`,
           opacity: `${newProgressHeight}`,
@@ -68,6 +111,6 @@ const CustomScrollBars = (props: IProps) => {
       {props.children}
     </div>
   );
-};
+}
 
-export default CustomScrollBars;
+export default CustomScrollbar;

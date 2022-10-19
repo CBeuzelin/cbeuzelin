@@ -1,0 +1,20 @@
+@import "src/shared/styles/variables";
+
+.light-theme {
+  &,
+  a {
+    color: $light-content-color;
+  }
+
+  .theme-main-container {
+    background-color: $light-main-background-color;
+  }
+
+  .theme-secondary-container {
+    background-color: $light-secondary-background-color;
+  }
+
+  .theme-border {
+    border-color: $light-border-color;
+  }
+}

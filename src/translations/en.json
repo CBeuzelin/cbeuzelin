@@ -1,5 +1,17 @@
 {
   "en": "English",
   "fr": "French",
-  "hello": "Hello"
+  "hello": "Hello",
+
+  "contact": "Contact",
+
+  "presentation": "Presentation",
+
+  "prestations": "Prestations",
+
+  "pricing": "Pricing",
+
+  "portfolio": "Portfolio",
+
+  "products": "Products"
 }
