@@ -4,12 +4,12 @@ header {
   z-index: 2;
   position: fixed;
   width: calc(100% - 10vw);
-  padding: 5vh 5vw;
+  padding: 3vh 5vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 1.5em;
-  background: linear-gradient($dark-main-background-color, 70%, transparent);
+  background: linear-gradient($dark-main-background-color, 50%, transparent);
 
   &::before {
     background: linear-gradient($light-main-background-color, 50%, transparent);
@@ -29,15 +29,24 @@ header {
     z-index: 2;
   }
 
-  nav {
+  .nav-container {
     display: flex;
-    gap: 12px;
+    flex-direction: column;
 
-    .tab {
-      padding: 12px 12px;
-      text-decoration: unset;
-      text-align: center;
-      border-bottom: solid 2px transparent;
+    nav {
+      display: flex;
+      gap: 12px;
+
+      .tab {
+        padding: 12px 12px;
+        text-decoration: unset;
+        text-align: center;
+      }
+    }
+
+    #underline {
+      height: 2px;
+      margin-top: 12px;
     }
   }
 
@@ -107,6 +116,10 @@ header {
       }
     }
 
+    #underline {
+      background-color: $dark-border-color;
+    }
+
     .img-button {
       border-color: $dark-content-color;
 
@@ -145,6 +158,10 @@ header {
       &:hover {
         color: $light-hover-color;
       }
+    }
+
+    #underline {
+      background-color: $light-border-color;
     }
 
     .img-button {

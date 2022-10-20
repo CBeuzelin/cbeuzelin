@@ -1,8 +1,10 @@
 import "./App.scss";
+const messagesFr = require("./translations/fr.json");
+const messagesEn = require("./translations/en.json");
 
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { HashLink } from "react-router-hash-link";
-import { IntlProvider } from "react-intl";
+import { FormattedMessage, IntlProvider } from "react-intl";
 
 import Header from "./modules/header/components";
 import AppContext from "./contexts/app.context";
@@ -17,27 +19,21 @@ import Portfolio from "./modules/portfolio";
 import Contact from "./modules/contact";
 import { ERoutes } from "./shared/enums/routes.enum";
 
-const messagesFr = require("./translations/fr.json");
-const messagesEn = require("./translations/en.json");
-
 function App() {
   const [locale, setLocale] = useState(ELocale.FR);
   const [theme, setTheme] = useState(ETheme.DARK);
   const [visibleSection, setVisibleSection] = useState(ERoutes.PRESENTATION);
 
-  const context = useMemo(
-    () => ({
-      locale,
-      setLocale,
+  const context = {
+    locale,
+    setLocale,
 
-      theme,
-      setTheme,
+    theme,
+    setTheme,
 
-      visibleSection,
-      setVisibleSection,
-    }),
-    [locale, theme, visibleSection]
-  );
+    visibleSection,
+    setVisibleSection,
+  };
 
   function getMessagesByLang() {
     return locale === ELocale.EN ? messagesEn : messagesFr;
@@ -65,7 +61,7 @@ function App() {
 
           <div id="back-to-top">
             <HashLink to={`/#top`} smooth={true}>
-              Back to top
+              <FormattedMessage id="backToTop" />
             </HashLink>
           </div>
         </div>

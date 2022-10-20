@@ -5,6 +5,7 @@ import ukFlag from "../../../shared/images/united-kingdom.png";
 import React, { useContext, useEffect } from "react";
 import { HashLink } from "react-router-hash-link";
 import { FormattedMessage } from "react-intl";
+import { motion } from "framer-motion";
 
 import AppContext from "../../../contexts/app.context";
 import { ELocale } from "../../../shared/enums/locale.enum";
@@ -17,12 +18,14 @@ function Header() {
     useContext(AppContext);
 
   useEffect(() => {
-    const element = document.querySelector(window.location.hash);
+    if (window.location.hash) {
+      const element = document.querySelector(window.location.hash);
 
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-      });
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+        });
+      }
     }
   }, []);
 
@@ -39,27 +42,38 @@ function Header() {
   }
 
   function getTab(route: ERoutes, label: JSX.Element) {
+    const isActive = visibleSection === route;
     return (
-      <HashLink
-        className={`tab transition ${visibleSection === route ? "active" : ""}`}
-        to={`/#${route}`}
-        smooth={true}
-      >
-        <span>{label}</span>
-      </HashLink>
+      <div key={`${route}-tab`}>
+        <HashLink
+          id={`${route}-tab`}
+          className={`tab transition ${isActive ? "active" : ""}`}
+          to={`/#${route}`}
+          smooth={true}
+        >
+          <span>{label}</span>
+        </HashLink>
+
+        {isActive && (
+          <motion.div
+            layoutId="underline"
+            id="underline"
+            transition={{ ease: "linear", duration: 0.1 }}
+          />
+        )}
+      </div>
     );
   }
 
   return (
     <header className="transition">
-      <nav>
-        {getTab(ERoutes.PRESENTATION, <FormattedMessage id="presentation" />)}
-        {getTab(ERoutes.PRODUCTS, <FormattedMessage id="products" />)}
-        {getTab(ERoutes.PRESTATIONS, <FormattedMessage id="prestations" />)}
-        {getTab(ERoutes.PRICING, <FormattedMessage id="pricing" />)}
-        {getTab(ERoutes.PORTFOLIO, <FormattedMessage id="portfolio" />)}
-        {getTab(ERoutes.CONTACT, <FormattedMessage id="contact" />)}
-      </nav>
+      <div className="nav-container">
+        <nav>
+          {Object.values(ERoutes).map((route) =>
+            getTab(route, <FormattedMessage id={route} />)
+          )}
+        </nav>
+      </div>
 
       <div className="buttons-container">
         <button

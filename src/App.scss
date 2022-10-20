@@ -8,6 +8,10 @@ body,
   height: 100%;
 }
 
+a {
+  text-decoration: none;
+}
+
 #app {
   position: relative;
   height: 100%;
@@ -26,18 +30,26 @@ body,
     height: 100vh;
   }
 
-  .hoverable {
-    transition: opacity 0.3s;
-
-    &:hover {
-      opacity: 0.7;
-    }
-  }
-
   #back-to-top {
     position: absolute;
     bottom: 5vh;
     right: 5vw;
+
+    a {
+      transition: color $transition-timer;
+    }
+  }
+
+  &.dark-theme {
+    #back-to-top:hover a {
+      color: $dark-hover-color !important;
+    }
+  }
+
+  &.light-theme {
+    #back-to-top:hover a {
+      color: $light-hover-color;
+    }
   }
 }
 
