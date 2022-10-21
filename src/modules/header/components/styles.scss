@@ -4,15 +4,97 @@ header {
   z-index: 2;
   position: fixed;
   width: calc(100% - 10vw);
+  height: 70px;
   padding: 3vh 5vw;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   font-size: 1.5em;
-  background: linear-gradient($dark-main-background-color, 50%, transparent);
+  background: linear-gradient($dark-main-background-color, 70%, transparent);
+
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    nav,
+    .buttons-container {
+      z-index: 2;
+    }
+
+    .nav-container {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+
+      nav {
+        display: flex;
+        gap: 12px;
+
+        .tab {
+          padding: 12px 12px;
+          text-decoration: unset;
+          text-align: center;
+        }
+      }
+
+      #underline {
+        height: 2px;
+        margin-top: 12px;
+      }
+    }
+
+    .buttons-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 16px;
+
+      .img-button {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        border: solid 2px;
+        background-color: $dark-secondary-background-color;
+        height: 40px;
+        width: 40px;
+        overflow: hidden;
+        cursor: pointer;
+
+        .img-container,
+        .icon-container {
+          position: absolute;
+          top: calc(50% - 12px);
+          left: calc(50% - 12px);
+          display: flex;
+          gap: 8px;
+          transition: left $transition-timer;
+        }
+      }
+
+      #language-button {
+        .img-container {
+          height: calc(100% + 2px);
+          width: calc(100% + 2px);
+          top: 0;
+          left: 0;
+
+          img {
+            height: 100%;
+            width: 100%;
+          }
+        }
+
+        &.uk-flag {
+          .img-container {
+            left: -47px;
+          }
+        }
+      }
+    }
+  }
 
   &::before {
-    background: linear-gradient($light-main-background-color, 50%, transparent);
+    background: linear-gradient($light-main-background-color, 70%, transparent);
     position: absolute;
     content: "";
     top: 0;
@@ -23,85 +105,10 @@ header {
     opacity: 0;
     transition: opacity $transition-timer;
   }
-
-  nav,
-  .buttons-container {
-    z-index: 2;
-  }
-
-  .nav-container {
-    display: flex;
-    flex-direction: column;
-
-    nav {
-      display: flex;
-      gap: 12px;
-
-      .tab {
-        padding: 12px 12px;
-        text-decoration: unset;
-        text-align: center;
-      }
-    }
-
-    #underline {
-      height: 2px;
-      margin-top: 12px;
-    }
-  }
-
-  .buttons-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 16px;
-
-    .img-button {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
-      border: solid 2px;
-      background-color: $dark-secondary-background-color;
-      height: 3em;
-      width: 3em;
-      overflow: hidden;
-      cursor: pointer;
-
-      .img-container,
-      .icon-container {
-        position: absolute;
-        top: calc(50% - 12px);
-        left: calc(50% - 12px);
-        display: flex;
-        gap: 8px;
-        transition: left $transition-timer;
-      }
-    }
-
-    #language-button {
-      .img-container {
-        top: -2px;
-        left: -2px;
-
-        img {
-          height: 3em;
-          width: 3em;
-        }
-      }
-
-      &.uk-flag {
-        .img-container {
-          left: calc(-150% + 4px);
-        }
-      }
-    }
-  }
 }
 
 .dark-theme {
-  header {
+  header > div {
     &::before {
       opacity: 0;
     }
@@ -187,6 +194,54 @@ header {
         svg {
           fill: $light-hover-color;
         }
+      }
+    }
+  }
+}
+
+.tablet header {
+  width: calc(100% - 6vw);
+  padding: 2vh 3vw;
+  font-size: 1em;
+
+  .nav-container #underline {
+    margin-top: 8px;
+  }
+
+  .buttons-container {
+    gap: 8px;
+
+    .img-button {
+      height: 24px;
+      width: 24px;
+    }
+
+    #language-button {
+      .img-container {
+        left: -1px;
+      }
+
+      &.uk-flag {
+        .img-container {
+          top: -1px;
+          left: -31px;
+        }
+      }
+    }
+
+    #theme-button {
+      .icon-container {
+        top: 2px;
+        left: 2px;
+
+        svg {
+          height: 16px;
+          width: 16px;
+        }
+      }
+
+      &[aria-label="light-theme"] .icon-container {
+        left: -22px;
       }
     }
   }

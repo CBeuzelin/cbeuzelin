@@ -7,7 +7,7 @@ import { HashLink } from "react-router-hash-link";
 import { FormattedMessage } from "react-intl";
 import { motion } from "framer-motion";
 
-import AppContext from "../../../contexts/app.context";
+import AppContext from "../../../contexts/context";
 import { ELocale } from "../../../shared/enums/locale.enum";
 import { ETheme } from "../../../shared/enums/theme.enum";
 import { ERoutes } from "../../../shared/enums/routes.enum";
@@ -67,40 +67,42 @@ function Header() {
 
   return (
     <header className="transition">
-      <div className="nav-container">
-        <nav>
-          {Object.values(ERoutes).map((route) =>
-            getTab(route, <FormattedMessage id={route} />)
-          )}
-        </nav>
-      </div>
+      <div>
+        <div className="nav-container">
+          <nav>
+            {Object.values(ERoutes).map((route) =>
+              getTab(route, <FormattedMessage id={route} />)
+            )}
+          </nav>
+        </div>
 
-      <div className="buttons-container">
-        <button
-          id="language-button"
-          className={`img-button transition ${getLanguageClass()}`}
-          type="button"
-          aria-label={getLanguageClass()}
-          onClick={onLocaleChange}
-        >
-          <div className="img-container">
-            <img src={frFlag} alt="fr-flag" />
-            <img src={ukFlag} alt="uk-flag" />
-          </div>
-        </button>
+        <div className="buttons-container">
+          <button
+            id="language-button"
+            className={`img-button transition ${getLanguageClass()}`}
+            type="button"
+            aria-label={getLanguageClass()}
+            onClick={onLocaleChange}
+          >
+            <div className="img-container">
+              <img src={frFlag} alt="fr-flag" />
+              <img src={ukFlag} alt="uk-flag" />
+            </div>
+          </button>
 
-        <button
-          id="theme-button"
-          className="img-button transition"
-          type="button"
-          aria-label={theme}
-          onClick={onThemeChange}
-        >
-          <div className="icon-container">
-            <DarkModeIcon className="transition" />
-            <LightModeIcon className="transition" />
-          </div>
-        </button>
+          <button
+            id="theme-button"
+            className="img-button transition"
+            type="button"
+            aria-label={theme}
+            onClick={onThemeChange}
+          >
+            <div className="icon-container">
+              <DarkModeIcon className="transition" />
+              <LightModeIcon className="transition" />
+            </div>
+          </button>
+        </div>
       </div>
     </header>
   );

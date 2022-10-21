@@ -3,7 +3,7 @@ import "./styles.scss";
 import React, { ReactNode, useContext, useEffect, useState } from "react";
 
 import { ERoutes } from "../../../../shared/enums/routes.enum";
-import AppContext from "../../../../contexts/app.context";
+import AppContext from "../../../../contexts/context";
 
 interface IProps {
   children: ReactNode;
@@ -82,6 +82,12 @@ function CustomScrollbar(props: IProps) {
           opacity: `${newProgressHeight}`,
         });
       });
+
+      return () => {
+        scrollContainer.removeEventListener("scroll", () => {});
+        scrollBarContainer.removeEventListener("click", () => {});
+        window.removeEventListener("resize", () => {});
+      };
     }
   }, []);
 
