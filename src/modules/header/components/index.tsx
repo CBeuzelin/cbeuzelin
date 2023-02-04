@@ -87,6 +87,7 @@ function Header() {
             <div className="img-container">
               <img src={frFlag} alt="fr-flag" />
               <img src={ukFlag} alt="uk-flag" />
+              toto
             </div>
           </button>
 
